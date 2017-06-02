@@ -1,0 +1,15 @@
+*.qcow2
+*.tfstate*
+
+/*.tfvars
+
+*.local
+*local.tf
+*local.sh
+
+# files from profiles
+/profile-*.tf
+
+*.crt
+*.key
+*.rpm
