@@ -16,7 +16,7 @@
 # NOTE: we assume that "images/caasp-beta.qcow2" will end up in
 #       a volume named "caasp-beta.qcow2"
 #
-IMG_SRC="http://download.suse.de/install/SUSE-CaaSP-1.0-Beta3/"
+IMG_SRC="http://download.suse.de/install/SUSE-CaaSP-1.0-GMC/"
 IMG_REGEX="SUSE-CaaS-Platform.*-KVM-and-Xen.*x86_64"
 IMG_GLOB=$(echo "$IMG_REGEX" | sed -e 's|\.\*|\*|g')*.qcow2
 IMG_LOCAL_NAME="images/beta/caasp.qcow2"

@@ -30,7 +30,7 @@ variable "img_pool" {
 
 variable "img_src" {
   type        = "string"
-  default     = "http://download.suse.de/install/SUSE-CaaSP-1.0-Beta3/"
+  default     = "http://download.suse.de/install/SUSE-CaaSP-1.0-GMC/"
   description = "URL to the CaaSP image for KVM - see http://download.suse.de/ibs/SUSE:/SLE-12-SP2:/Update:/Products:/CASP10/images/ contents"
 }
 
@@ -46,7 +46,7 @@ variable "img_refresh" {
 }
 
 variable "nodes_count" {
-  default     = 2
+  default     = 3
   description = "Number of non-admin nodes to be created"
 }
 
@@ -86,7 +86,6 @@ resource "libvirt_volume" "base_img" {
   name      = "${basename(var.img_local)}"
   source    = "${var.img_local}"
   pool      = "${var.img_pool}"
-  overwrite = "true"
   depends_on = ["null_resource.local_checkout_of_caasp_image"]
 }
 
@@ -123,7 +122,7 @@ resource "libvirt_domain" "admin" {
   }
 
   network_interface {
-    network_name   = "default"
+    network_name   = "vagrant-libvirt"
     wait_for_lease = 1
   }
 
@@ -177,7 +176,7 @@ resource "libvirt_domain" "node" {
   }
 
   network_interface {
-    network_name   = "default"
+    network_name   = "vagrant-libvirt"
     wait_for_lease = 1
   }
 
