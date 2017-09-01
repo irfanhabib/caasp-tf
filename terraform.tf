@@ -23,6 +23,12 @@ variable "libvirt_uri" {
   description = "libvirt connection url - default to localhost"
 }
 
+variable "network_name" {
+  default     = "default"
+  description = "libvirt network"
+}
+
+
 variable "img_pool" {
   default     = "default"
   description = "pool to be used to store all the volumes"
@@ -76,9 +82,9 @@ provider "libvirt" {
 }
 
 resource "null_resource" "local_checkout_of_caasp_image" {
-  provisioner "local-exec" {
-    command = "./support/tf/download-image.sh --src ${var.img_src} --refresh ${var.img_refresh} --local ${var.img_local}"
-  }
+ # provisioner "local-exec" {
+ #   command = "./support/tf/download-image.sh --src ${var.img_src} --refresh ${var.img_refresh} --local ${var.img_local}"
+ # }
 }
 
 # This is the CaaSP kvm image that has been created by IBS
@@ -122,7 +128,7 @@ resource "libvirt_domain" "admin" {
   }
 
   network_interface {
-    network_name   = "vagrant-libvirt"
+    network_name   = "${var.network_name}"
     wait_for_lease = 1
   }
 
@@ -176,7 +182,7 @@ resource "libvirt_domain" "node" {
   }
 
   network_interface {
-    network_name   = "vagrant-libvirt"
+    network_name   = "${var.network_name}"
     wait_for_lease = 1
   }
 
