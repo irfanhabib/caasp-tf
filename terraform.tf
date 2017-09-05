@@ -28,6 +28,11 @@ variable "img_pool" {
   description = "pool to be used to store all the volumes"
 }
 
+variable "network_name" {
+  default     = "default"
+  description = "default libvirt network"
+}
+
 variable "img_src" {
   type        = "string"
   default     = "http://download.suse.de/install/SUSE-CaaSP-1.0-GMC/"
@@ -122,7 +127,7 @@ resource "libvirt_domain" "admin" {
   }
 
   network_interface {
-    network_name   = "vagrant-libvirt"
+    network_name   = "${var.network_name}"
     wait_for_lease = 1
   }
 
@@ -176,7 +181,7 @@ resource "libvirt_domain" "node" {
   }
 
   network_interface {
-    network_name   = "vagrant-libvirt"
+    network_name   = "${var.network_name}"
     wait_for_lease = 1
   }
 
